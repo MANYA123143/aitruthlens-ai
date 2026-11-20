@@ -226,15 +226,21 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.subheader("⚙️ Settings & API")
+    st.subheader("⚙️ Settings")
 
     configured_key = get_gemini_api_key()
-    user_api_key = st.text_input(
-        "Google Gemini API Key",
-        value=configured_key if configured_key else "",
-        type="password",
-        help="Free API key from Google AI Studio (https://aistudio.google.com/)"
-    )
+
+    if configured_key:
+        st.success("🔒 System API Key Connected")
+        user_api_key = ""
+    else:
+        user_api_key = st.text_input(
+            "Gemini API Key",
+            value="",
+            type="password",
+            placeholder="AIzaSy...",
+            help="Provide your personal Gemini API key or configure GEMINI_API_KEY in Streamlit secrets."
+        )
 
     selected_model = st.selectbox(
         "Gemini Model",
