@@ -90,7 +90,11 @@ def extract_claims_from_text(
     prompt = EXTRACTION_PROMPT.replace("{max_claims}", str(max_claims)) + f"\n\nDOCUMENT TEXT:\n{combined_text}"
 
     try:
-        client = genai.Client(api_key=api_key)
+        # Explicitly configure api_version='v1beta' for JSON mode compatibility
+        client = genai.Client(
+            api_key=api_key,
+            http_options={"api_version": "v1beta"}
+        )
         
         # We request structured JSON output
         config = types.GenerateContentConfig(

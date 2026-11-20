@@ -197,7 +197,10 @@ def verify_claims_batch(
     if not api_key:
         raise ValueError("Missing Gemini API Key.")
 
-    client = genai.Client(api_key=api_key)
+    client = genai.Client(
+        api_key=api_key,
+        http_options={"api_version": "v1beta"}
+    )
     results = []
     total = len(claims)
 
